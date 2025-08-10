@@ -75,8 +75,8 @@ const GridSkillCards = () => {
         { name: 'MongoDB', level: 75 }
       ],
       tools: ['phpMyAdmin', 'MongoDB Compass'],
-      experience: '2+ years',
-      projects: 16
+      experience: '1 year',
+      projects: 5
     },
     {
       id: 'tools',

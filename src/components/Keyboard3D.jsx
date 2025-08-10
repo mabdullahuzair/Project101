@@ -1,7 +1,6 @@
 import React, { useRef, useState, useEffect } from 'react';
-import { Canvas, useFrame, useThree } from '@react-three/fiber';
-import { Text, OrbitControls, Box } from '@react-three/drei';
-import { Vector3 } from 'three';
+import { Canvas, useFrame } from '@react-three/fiber';
+import { OrbitControls, Box, Html } from '@react-three/drei';
 
 const KeyboardKey = ({ position, args, color, onClick, children, skill, hovered, setHovered }) => {
   const meshRef = useRef();
@@ -44,16 +43,21 @@ const KeyboardKey = ({ position, args, color, onClick, children, skill, hovered,
           roughness={0.4}
         />
       </Box>
-      <Text
+      <Html
         position={[0, 0, 0.51]}
-        fontSize={0.3}
-        color={isHovered ? 'white' : 'black'}
-        anchorX="center"
-        anchorY="middle"
-        font="/fonts/Inter-Bold.woff"
+        center
+        transform
+        occlude
+        style={{
+          color: isHovered ? 'white' : 'black',
+          fontSize: '14px',
+          fontWeight: 'bold',
+          pointerEvents: 'none',
+          userSelect: 'none'
+        }}
       >
         {children}
-      </Text>
+      </Html>
     </group>
   );
 };

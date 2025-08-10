@@ -243,7 +243,7 @@ const QwertySkillsKeyboard = () => {
   return (
     <div 
       ref={keyboardRef}
-      className={`w-full max-w-5xl mx-auto transition-all duration-1000 ${
+      className={`w-full max-w-3xl mx-auto transition-all duration-1000 ${
         isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
       }`}
     >

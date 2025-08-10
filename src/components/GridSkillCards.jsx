@@ -393,7 +393,7 @@ const GridSkillCards = () => {
   return (
     <div ref={sectionRef} className="py-8">
       {/* Grid of Cards - 3 columns on larger screens */}
-      <div className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 transition-all duration-1000 ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
+      <div className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 max-w-7xl mx-auto transition-all duration-1000 ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
         {skillCategories.map((category, index) => (
           <SkillCard key={category.id} category={category} index={index} />
         ))}

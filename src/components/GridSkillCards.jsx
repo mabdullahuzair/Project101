@@ -154,13 +154,17 @@ const GridSkillCards = () => {
   }, []);
 
   const handleCardClick = (cardId) => {
+    console.log('Card clicked:', cardId);
     setFlippedCards(prev => {
       const newSet = new Set(prev);
       if (newSet.has(cardId)) {
         newSet.delete(cardId);
+        console.log('Card flipped back:', cardId);
       } else {
         newSet.add(cardId);
+        console.log('Card flipped:', cardId);
       }
+      console.log('Flipped cards:', Array.from(newSet));
       return newSet;
     });
   };

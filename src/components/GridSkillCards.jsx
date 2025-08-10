@@ -182,7 +182,9 @@ const GridSkillCards = () => {
           className="relative w-full h-full transition-transform duration-700 hover:scale-105"
           style={{
             transformStyle: 'preserve-3d',
-            transform: isFlipped ? 'rotateY(180deg)' : 'rotateY(0deg)'
+            transform: isFlipped ? 'rotateY(180deg)' : 'rotateY(0deg)',
+            WebkitTransformStyle: 'preserve-3d',
+            WebkitTransform: isFlipped ? 'rotateY(180deg)' : 'rotateY(0deg)'
           }}
         >
           {/* Front Face */}

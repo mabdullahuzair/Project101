@@ -302,7 +302,7 @@ const QwertySkillsKeyboard = () => {
           {keyboardLayout.map((row, rowIndex) => (
             <div 
               key={rowIndex}
-              className="flex justify-center gap-2 md:gap-3"
+              className="flex justify-center gap-1 md:gap-2"
               style={{
                 marginLeft: rowIndex === 2 ? '0.5rem' : rowIndex === 3 ? '2rem' : '0'
               }}

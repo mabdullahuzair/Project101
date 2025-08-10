@@ -216,16 +216,17 @@ const GridSkillCards = () => {
 
     return (
       <div
-        className={`group relative h-64 cursor-pointer transition-all duration-700 ${
+        className={`group relative h-64 w-full cursor-pointer transition-all duration-700 ${
           isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
         } ${isDragged ? 'scale-110 z-50' : 'hover:scale-105'}`}
         style={{
           animationDelay: `${index * 100}ms`,
           perspective: '1000px',
-          transform: isDragged 
-            ? `scale(1.1) rotate(${(mousePosition.x % 10) - 5}deg)` 
-            : isHovered 
-            ? `rotate(${Math.sin(Date.now() * 0.001) * 2}deg)` 
+          transformStyle: 'preserve-3d',
+          transform: isDragged
+            ? `scale(1.1) rotate(${(mousePosition.x % 10) - 5}deg)`
+            : isHovered
+            ? `rotate(${Math.sin(Date.now() * 0.001) * 2}deg)`
             : 'rotate(0deg)'
         }}
         onClick={() => handleCardClick(category.id)}

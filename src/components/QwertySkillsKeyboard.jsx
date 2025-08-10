@@ -298,7 +298,7 @@ const QwertySkillsKeyboard = () => {
         }}
         onMouseDown={handleMouseDown}
       >
-        <div className="space-y-3 md:space-y-4">
+        <div className="space-y-2 md:space-y-3">
           {keyboardLayout.map((row, rowIndex) => (
             <div 
               key={rowIndex}

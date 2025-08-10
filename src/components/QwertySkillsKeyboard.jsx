@@ -133,8 +133,8 @@ const QwertySkillsKeyboard = () => {
     const deltaY = e.clientY - lastMousePosition.y;
 
     setKeyboardRotation(prev => ({
-      x: Math.max(-45, Math.min(45, prev.x + deltaY * 0.5)),
-      y: Math.max(-45, Math.min(45, prev.y + deltaX * 0.5))
+      x: prev.x + deltaY * 0.5,
+      y: prev.y + deltaX * 0.5
     }));
 
     setLastMousePosition({ x: e.clientX, y: e.clientY });

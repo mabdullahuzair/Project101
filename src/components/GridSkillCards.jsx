@@ -32,8 +32,8 @@ const GridSkillCards = () => {
         { name: 'Tailwind CSS', level: 85 }
       ],
       tools: ['VS Code', 'Chrome DevTools', 'Figma'],
-      experience: '2+ years',
-      projects: 20
+      experience: '1 year',
+      projects: 5
     },
     {
       id: 'backend',

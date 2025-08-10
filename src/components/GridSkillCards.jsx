@@ -17,7 +17,8 @@ import {
   HardDrive,
   Terminal,
   Users,
-  Zap
+  Zap,
+  TrendingUp
 } from 'lucide-react';
 
 const GridSkillCards = () => {

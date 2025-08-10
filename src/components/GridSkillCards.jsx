@@ -316,10 +316,11 @@ const GridSkillCards = () => {
           </div>
 
           {/* Back Face */}
-          <div 
+          <div
             className={`absolute inset-0 w-full h-full bg-gradient-to-br ${category.gradient} rounded-xl shadow-xl border border-white/20 overflow-hidden`}
-            style={{ 
+            style={{
               backfaceVisibility: 'hidden',
+              WebkitBackfaceVisibility: 'hidden',
               transform: 'rotateY(180deg)'
             }}
           >

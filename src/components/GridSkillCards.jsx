@@ -90,8 +90,8 @@ const GridSkillCards = () => {
         { name: 'IntelliJ IDEA', level: 80 }
       ],
       tools: ['Terminal', 'Figma', 'Slack'],
-      experience: '2+ years',
-      projects: 30
+      experience: '1 year',
+      projects: 5
     },
     {
       id: 'practices',

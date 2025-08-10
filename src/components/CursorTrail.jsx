@@ -1,0 +1,77 @@
+import { useState, useEffect } from 'react';
+
+const CursorTrail = () => {
+  const [trail, setTrail] = useState([]);
+
+  useEffect(() => {
+    // Only enable on desktop
+    if (window.innerWidth <= 768 || 'ontouchstart' in window) return;
+
+    let animationFrame;
+    let lastUpdate = 0;
+    const throttleDelay = 16; // ~60fps
+
+    const handleMouseMove = (e) => {
+      const now = Date.now();
+      if (animationFrame || now - lastUpdate < throttleDelay) return;
+
+      lastUpdate = now;
+      animationFrame = requestAnimationFrame(() => {
+        setTrail(prevTrail => {
+          const newTrail = [
+            {
+              x: e.clientX,
+              y: e.clientY,
+              id: now,
+              timestamp: now
+            },
+            ...prevTrail.slice(0, 5) // Reduced from 8 to 5 for better performance
+          ];
+          return newTrail;
+        });
+        animationFrame = null;
+      });
+    };
+
+    document.addEventListener('mousemove', handleMouseMove, { passive: true });
+
+    // Clean up old trail points less frequently
+    const cleanupInterval = setInterval(() => {
+      const now = Date.now();
+      setTrail(prevTrail =>
+        prevTrail.filter(point => now - point.timestamp < 800) // Reduced from 1000ms
+      );
+    }, 200); // Reduced frequency from 100ms
+
+    return () => {
+      document.removeEventListener('mousemove', handleMouseMove);
+      clearInterval(cleanupInterval);
+      if (animationFrame) {
+        cancelAnimationFrame(animationFrame);
+      }
+    };
+  }, []);
+
+  return (
+    <div className="fixed inset-0 pointer-events-none z-[999998]">
+      {trail.map((point, index) => (
+        <div
+          key={point.id}
+          className="absolute w-2 h-2 bg-purple-500 rounded-full opacity-60"
+          style={{
+            left: point.x - 4,
+            top: point.y - 4,
+            transform: `scale(${1 - index * 0.1})`,
+            opacity: 0.8 - index * 0.1,
+            transition: 'all 0.3s ease-out',
+            background: `linear-gradient(45deg, 
+              hsl(${280 + index * 20}, 70%, 60%), 
+              hsl(${260 + index * 15}, 80%, 70%))`
+          }}
+        />
+      ))}
+    </div>
+  );
+};
+
+export default CursorTrail;

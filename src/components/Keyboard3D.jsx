@@ -7,9 +7,9 @@ const KeyboardKey = ({ position, args, color, onClick, children, skill, hovered,
   const [isHovered, setIsHovered] = useState(false);
 
   useFrame((state) => {
-    if (meshRef.current) {
-      meshRef.current.rotation.x += 0.01;
-      meshRef.current.rotation.y += 0.005;
+    if (meshRef.current && isHovered) {
+      meshRef.current.rotation.y = Math.sin(state.clock.elapsedTime * 3) * 0.1;
+      meshRef.current.position.z = Math.sin(state.clock.elapsedTime * 4) * 0.1;
     }
   });
 
@@ -39,8 +39,10 @@ const KeyboardKey = ({ position, args, color, onClick, children, skill, hovered,
       >
         <meshStandardMaterial
           color={isHovered ? (skill ? '#60a5fa' : '#ef4444') : (skill ? color : '#6b7280')}
-          metalness={0.6}
-          roughness={0.4}
+          metalness={0.8}
+          roughness={0.2}
+          emissive={isHovered ? '#1e40af' : '#000000'}
+          emissiveIntensity={isHovered ? 0.2 : 0}
         />
       </Box>
       <Html
@@ -113,28 +115,32 @@ const Keyboard3D = ({ skills = [], onSkillClick }) => {
   return (
     <div className="w-full h-96 bg-gradient-to-br from-gray-900 to-black rounded-2xl overflow-hidden">
       <Canvas
-        camera={{ position: [0, 0, 10], fov: 50 }}
+        camera={{ position: [0, 0, 12], fov: 50 }}
         style={{ background: 'linear-gradient(135deg, #1a1a2e, #16213e)' }}
       >
-        <ambientLight intensity={0.4} />
-        <pointLight position={[10, 10, 10]} intensity={1} />
-        <pointLight position={[-10, -10, -10]} intensity={0.5} />
+        <ambientLight intensity={0.6} />
+        <pointLight position={[10, 10, 10]} intensity={1.2} color="#ffffff" />
+        <pointLight position={[-10, -10, -10]} intensity={0.6} color="#60a5fa" />
+        <spotLight position={[0, 10, 0]} intensity={0.8} angle={0.3} penumbra={1} color="#8b5cf6" />
         
         {renderKeyboard()}
         
-        <OrbitControls 
+        <OrbitControls
           enablePan={true}
           enableZoom={true}
           enableRotate={true}
           autoRotate={true}
-          autoRotateSpeed={0.5}
+          autoRotateSpeed={1}
+          maxDistance={20}
+          minDistance={8}
         />
       </Canvas>
       
       {hoveredKey && skillKeyMap[hoveredKey] && (
-        <div className="absolute bottom-4 left-4 bg-black/80 text-white p-3 rounded-lg backdrop-blur-sm">
-          <div className="font-bold">{skillKeyMap[hoveredKey].name}</div>
+        <div className="absolute bottom-4 left-4 bg-black/80 text-white p-4 rounded-xl backdrop-blur-sm border border-white/20 shadow-2xl transition-all duration-300">
+          <div className="font-bold text-lg">{skillKeyMap[hoveredKey].name}</div>
           <div className="text-sm opacity-80">{skillKeyMap[hoveredKey].level}% Proficiency</div>
+          <div className="text-xs opacity-60 mt-1">Click to explore</div>
         </div>
       )}
     </div>

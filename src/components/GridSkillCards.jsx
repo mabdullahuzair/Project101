@@ -174,8 +174,8 @@ const GridSkillCards = () => {
     const IconComponent = category.icon;
 
     return (
-      <div 
-        className="w-full h-72 cursor-pointer"
+      <div
+        className="w-full h-64 cursor-pointer"
         style={{ 
           perspective: '1000px',
           animationDelay: `${index * 150}ms`

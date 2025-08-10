@@ -264,9 +264,9 @@ const GridSkillCards = () => {
               transform: 'rotateY(180deg)'
             }}
           >
-            <div className="p-6 h-full flex flex-col relative z-10">
+            <div className="p-4 h-full flex flex-col relative z-10">
               {/* Header */}
-              <div className="flex items-center space-x-3 mb-4">
+              <div className="flex items-center space-x-3 mb-3">
                 <IconComponent size={28} className="text-white" />
                 <div>
                   <h3 className="text-lg font-bold text-white">{category.title}</h3>

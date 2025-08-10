@@ -215,7 +215,7 @@ const ModernNavbar = ({ darkMode, toggleDarkMode }) => {
       {/* Mobile menu overlay */}
       {isOpen && (
         <div 
-          className="fixed inset-0 bg-black/20 backdrop-blur-sm z-[9998] sm:hidden transition-opacity duration-300"
+          className="fixed inset-0 bg-black/20 backdrop-blur-sm z-[9998] lg:hidden transition-opacity duration-300"
           onClick={() => setIsOpen(false)}
         />
       )}

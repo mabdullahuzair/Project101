@@ -79,7 +79,7 @@ const ModernNavbar = ({ darkMode, toggleDarkMode }) => {
             </div>
 
             {/* Desktop Navigation */}
-            <div className="hidden md:flex items-center space-x-2" style={{ display: 'flex !important' }}>
+            <div className="hidden sm:flex items-center space-x-2">
               {navItems.map((item) => {
                 const IconComponent = item.icon;
                 const isActive = activeSection === item.id;

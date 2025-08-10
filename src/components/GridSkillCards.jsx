@@ -105,8 +105,8 @@ const GridSkillCards = () => {
         { name: 'Responsive Design', level: 88 }
       ],
       tools: ['Git', 'GitHub Actions', 'Chrome DevTools'],
-      experience: '2+ years',
-      projects: 20
+      experience: '1 year',
+      projects: 5
     },
     {
       id: 'ml',

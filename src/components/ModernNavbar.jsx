@@ -161,7 +161,7 @@ const ModernNavbar = ({ darkMode, toggleDarkMode }) => {
         </div>
 
         {/* Mobile Navigation */}
-        <div className={`md:hidden overflow-hidden transition-all duration-500 ease-out ${
+        <div className={`sm:hidden overflow-hidden transition-all duration-500 ease-out ${
           isOpen ? 'max-h-screen opacity-100' : 'max-h-0 opacity-0'
         }`}>
           <div className="bg-white/98 dark:bg-gray-900/98 backdrop-blur-sm border-t border-gray-200/50 dark:border-gray-700/50">

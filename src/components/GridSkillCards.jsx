@@ -324,9 +324,9 @@ const GridSkillCards = () => {
               <div className="absolute bottom-0 right-0 w-16 h-16 bg-white rounded-full transform translate-x-8 translate-y-8"></div>
             </div>
 
-            <div className="p-5 h-full flex flex-col relative z-10">
+            <div className="p-4 h-full flex flex-col relative z-10">
               {/* Header */}
-              <div className="flex items-center space-x-3 mb-4">
+              <div className="flex items-center space-x-3 mb-3">
                 <IconComponent size={24} className="text-white" />
                 <div>
                   <h3 className="text-lg font-bold text-white">{category.title}</h3>

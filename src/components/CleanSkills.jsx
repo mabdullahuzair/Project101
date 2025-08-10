@@ -35,99 +35,27 @@ const CleanSkills = () => {
   const [currentKeyIndex, setCurrentKeyIndex] = useState(0);
   const sectionRef = useRef(null);
 
-  // Clean skills data
-  const skillCategories = {
-    mernStack: {
-      title: 'MERN Stack',
-      icon: Layers,
-      color: 'from-green-500 to-emerald-600',
-      description: 'Full-stack JavaScript development',
-      skills: [
-        { name: 'MongoDB', level: 75, key: 'M', description: 'NoSQL database for flexible data storage', projects: 8, years: 2 },
-        { name: 'Express.js', level: 80, key: 'E', description: 'Fast, unopinionated web framework for Node.js', projects: 10, years: 2 },
-        { name: 'React.js', level: 90, key: 'R', description: 'Component-based frontend library', projects: 15, years: 2 },
-        { name: 'Node.js', level: 85, key: 'N', description: 'JavaScript runtime built on Chrome V8 engine', projects: 12, years: 2 }
-      ]
-    },
-    frontend: {
-      title: 'Frontend Development',
-      icon: Palette,
-      color: 'from-blue-500 to-cyan-600',
-      description: 'Modern UI/UX development',
-      skills: [
-        { name: 'HTML5', level: 95, key: 'H', description: 'Semantic markup language for web content', projects: 20, years: 2 },
-        { name: 'CSS3', level: 90, key: 'C', description: 'Styling language with animations and layouts', projects: 20, years: 2 },
-        { name: 'JavaScript', level: 88, key: 'J', description: 'Dynamic programming language for web', projects: 18, years: 2 },
-        { name: 'Tailwind CSS', level: 92, key: 'T', description: 'Utility-first CSS framework', projects: 15, years: 2 },
-        { name: 'Bootstrap', level: 88, key: 'B', description: 'Popular CSS framework for responsive design', projects: 12, years: 2 },
-        { name: 'Responsive Design', level: 85, key: 'D', description: 'Mobile-first responsive web design', projects: 18, years: 2 }
-      ]
-    },
-    backend: {
-      title: 'Backend Development',
-      icon: Database,
-      color: 'from-purple-500 to-violet-600',
-      description: 'Server-side technologies',
-      skills: [
-        { name: 'PHP', level: 82, key: 'P', description: 'Server-side scripting language', projects: 14, years: 2 },
-        { name: 'MySQL', level: 80, key: 'Q', description: 'Popular relational database management system', projects: 16, years: 2 },
-        { name: 'Python', level: 75, key: 'Y', description: 'High-level, interpreted programming language', projects: 10, years: 2 }
-      ]
-    },
-    tools: {
-      title: 'Development Tools',
-      icon: Wrench,
-      color: 'from-orange-500 to-red-600',
-      description: 'Essential development tools',
-      skills: [
-        { name: 'Git & GitHub', level: 90, key: 'G', description: 'Distributed version control system', projects: 25, years: 2 },
-        { name: 'VS Code', level: 95, key: 'V', description: 'Powerful code editor with extensions', projects: 25, years: 2 },
-        { name: 'Postman', level: 85, key: 'O', description: 'API development and testing tool', projects: 15, years: 2 },
-        { name: 'RESTful APIs', level: 82, key: 'A', description: 'Architectural style for web services', projects: 18, years: 2 }
-      ]
-    },
-    emerging: {
-      title: 'Emerging Technologies',
-      icon: Brain,
-      color: 'from-pink-500 to-rose-600',
-      description: 'AI & Machine Learning',
-      skills: [
-        { name: 'Machine Learning', level: 68, key: 'I', description: 'AI algorithms and data analysis with Python', projects: 6, years: 1 },
-        { name: 'SEO Optimization', level: 75, key: 'S', description: 'Search engine optimization techniques', projects: 12, years: 2 }
-      ]
-    }
-  };
-
-  // Get all skills in a flat array
-  const allSkills = Object.values(skillCategories).flatMap(category => 
-    category.skills.map(skill => ({
-      ...skill,
-      category: category.title,
-      categoryColor: category.color
-    }))
-  );
-
-  // Filter skills based on active category
-  const displayedSkills = activeCategory === 'all' 
-    ? allSkills 
-    : skillCategories[activeCategory]?.skills.map(skill => ({
-        ...skill,
-        category: skillCategories[activeCategory].title,
-        categoryColor: skillCategories[activeCategory].color
-      })) || [];
-
-  // Virtual keyboard layout
-  const keyboardLayout = [
-    ['Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P'],
-    ['A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L'],
-    ['Z', 'X', 'C', 'V', 'B', 'N', 'M']
+  // Sample skills data for 3D keyboard (will be passed from FlippingSkillCards)
+  const sampleSkills = [
+    { name: 'HTML5', level: 95, key: 'H', color: '#E34F26' },
+    { name: 'CSS3', level: 90, key: 'C', color: '#1572B6' },
+    { name: 'JavaScript', level: 88, key: 'J', color: '#F7DF1E' },
+    { name: 'React.js', level: 85, key: 'R', color: '#61DAFB' },
+    { name: 'Node.js', level: 85, key: 'N', color: '#339933' },
+    { name: 'MongoDB', level: 75, key: 'M', color: '#47A248' },
+    { name: 'Python', level: 75, key: 'Y', color: '#3776AB' },
+    { name: 'Git & GitHub', level: 90, key: 'G', color: '#F05032' },
+    { name: 'VS Code', level: 95, key: 'V', color: '#007ACC' },
+    { name: 'Tailwind CSS', level: 92, key: 'T', color: '#06B6D4' },
+    { name: 'Bootstrap', level: 88, key: 'B', color: '#7952B3' },
+    { name: 'Express.js', level: 80, key: 'E', color: '#000000' },
+    { name: 'PHP', level: 82, key: 'P', color: '#777BB4' },
+    { name: 'MySQL', level: 80, key: 'Q', color: '#4479A1' },
+    { name: 'Postman', level: 85, key: 'O', color: '#FF6C37' },
+    { name: 'RESTful APIs', level: 82, key: 'A', color: '#25D366' },
+    { name: 'Machine Learning', level: 68, key: 'I', color: '#FF6B6B' },
+    { name: 'SEO Optimization', level: 75, key: 'S', color: '#4285F4' }
   ];
-
-  // Create skill key mapping
-  const skillKeyMap = {};
-  allSkills.forEach(skill => {
-    skillKeyMap[skill.key] = skill;
-  });
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -157,18 +85,18 @@ const CleanSkills = () => {
   useEffect(() => {
     if (!isVisible) return;
 
-    const skills = allSkills.map(skill => skill.name);
+    const skills = sampleSkills.map(skill => skill.name);
     let currentIndex = 0;
     let currentChar = 0;
     let isDeleting = false;
 
     const typeWriter = () => {
       const currentSkill = skills[currentIndex];
-      
+
       if (isDeleting) {
         setTypedText(currentSkill.substring(0, currentChar - 1));
         currentChar--;
-        
+
         if (currentChar === 0) {
           isDeleting = false;
           currentIndex = (currentIndex + 1) % skills.length;
@@ -176,7 +104,7 @@ const CleanSkills = () => {
       } else {
         setTypedText(currentSkill.substring(0, currentChar + 1));
         currentChar++;
-        
+
         if (currentChar === currentSkill.length) {
           setTimeout(() => {
             isDeleting = true;
@@ -188,107 +116,8 @@ const CleanSkills = () => {
 
     const interval = setInterval(typeWriter, isDeleting ? 50 : 100);
     return () => clearInterval(interval);
-  }, [isVisible, allSkills]);
+  }, [isVisible, sampleSkills]);
 
-  const handleKeyClick = (key) => {
-    if (skillKeyMap[key]) {
-      setFlippedCard(flippedCard === key ? null : key);
-    }
-  };
-
-  const handleCardClick = (skill) => {
-    setFlippedCard(flippedCard === skill.key ? null : skill.key);
-  };
-
-  const SkillCard = ({ skill, index }) => {
-    const isFlipped = flippedCard === skill.key;
-    
-    return (
-      <div
-        className={`group relative h-64 perspective-1000 cursor-pointer transition-all duration-500 ${
-          isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-        }`}
-        style={{ animationDelay: `${index * 100}ms` }}
-        onClick={() => handleCardClick(skill)}
-      >
-        <div
-          className={`relative w-full h-full transition-transform duration-700 transform-style-preserve-3d ${
-            isFlipped ? 'rotate-y-180' : ''
-          }`}
-        >
-          {/* Front Face */}
-          <div className={`absolute inset-0 w-full h-full bg-gradient-to-br ${skill.categoryColor} rounded-2xl shadow-xl backface-hidden border border-white/20 overflow-hidden`}>
-            <div className="p-6 h-full flex flex-col">
-              {/* Header */}
-              <div className="flex items-center justify-between mb-4">
-                <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center backdrop-blur-sm">
-                  <span className="text-white font-bold text-lg">{skill.key}</span>
-                </div>
-                <div className="text-right">
-                  <div className="text-white font-bold text-lg">{skill.level}%</div>
-                  <div className="text-white/80 text-xs">Proficiency</div>
-                </div>
-              </div>
-
-              {/* Skill Name */}
-              <h3 className="text-xl font-bold text-white mb-2">{skill.name}</h3>
-              <p className="text-white/90 text-sm mb-4 flex-grow">{skill.description}</p>
-
-              {/* Progress Bar */}
-              <div className="mb-4">
-                <div className="w-full bg-white/20 rounded-full h-2">
-                  <div
-                    className="h-2 bg-white rounded-full transition-all duration-1000"
-                    style={{ width: isVisible ? `${skill.level}%` : '0%' }}
-                  />
-                </div>
-              </div>
-
-              {/* Stats */}
-              <div className="flex justify-between text-white/90 text-sm">
-                <div className="flex items-center space-x-1">
-                  <Briefcase size={14} />
-                  <span>{skill.projects} projects</span>
-                </div>
-                <div className="flex items-center space-x-1">
-                  <Calendar size={14} />
-                  <span>{skill.years} years</span>
-                </div>
-              </div>
-            </div>
-          </div>
-          
-          {/* Back Face */}
-          <div className={`absolute inset-0 w-full h-full bg-gradient-to-br ${skill.categoryColor} rounded-2xl shadow-xl backface-hidden rotate-y-180 border border-white/20 overflow-hidden`}>
-            <div className="p-6 h-full flex flex-col justify-center items-center text-center">
-              <Award className="text-white mb-4" size={48} />
-              <h3 className="text-xl font-bold text-white mb-3">{skill.name}</h3>
-              <p className="text-white/90 text-sm mb-4">{skill.description}</p>
-              
-              <div className="space-y-3 w-full">
-                <div className="flex justify-between items-center text-white">
-                  <span>Experience:</span>
-                  <span className="font-bold">{skill.years} years</span>
-                </div>
-                <div className="flex justify-between items-center text-white">
-                  <span>Projects:</span>
-                  <span className="font-bold">{skill.projects}</span>
-                </div>
-                <div className="flex justify-between items-center text-white">
-                  <span>Proficiency:</span>
-                  <span className="font-bold">{skill.level}%</span>
-                </div>
-              </div>
-              
-              <div className="mt-4 text-white/70 text-xs">
-                Click to flip back
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-  };
 
   return (
     <section
@@ -327,13 +156,13 @@ const CleanSkills = () => {
           </h3>
           <div className="max-w-6xl mx-auto">
             <Keyboard3D
-              skills={allSkills}
+              skills={sampleSkills}
               onSkillClick={(skill) => setFlippedCard(flippedCard === skill.key ? null : skill.key)}
             />
           </div>
           <div className="text-center mt-4">
             <div className="text-sm text-gray-600 dark:text-gray-400">
-              Drag to rotate • Click colored keys to explore skills • {allSkills.length} skills mapped
+              Drag to rotate • Click colored keys to explore skills • {sampleSkills.length} skills mapped
             </div>
           </div>
         </div>
@@ -350,25 +179,25 @@ const CleanSkills = () => {
         <div className={`mt-16 grid grid-cols-2 md:grid-cols-4 gap-6 transition-all duration-1000 delay-900 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-20'}`}>
           <div className="text-center bg-white/80 dark:bg-gray-800/80 backdrop-blur-md rounded-xl p-6">
             <div className="text-3xl font-bold text-blue-600 dark:text-blue-400 mb-2">
-              {allSkills.length}
+              {sampleSkills.length}
             </div>
             <div className="text-gray-600 dark:text-gray-400">Technologies</div>
           </div>
           <div className="text-center bg-white/80 dark:bg-gray-800/80 backdrop-blur-md rounded-xl p-6">
             <div className="text-3xl font-bold text-green-600 dark:text-green-400 mb-2">
-              {Math.round(allSkills.reduce((acc, skill) => acc + skill.level, 0) / allSkills.length)}%
+              {Math.round(sampleSkills.reduce((acc, skill) => acc + skill.level, 0) / sampleSkills.length)}%
             </div>
             <div className="text-gray-600 dark:text-gray-400">Avg. Proficiency</div>
           </div>
           <div className="text-center bg-white/80 dark:bg-gray-800/80 backdrop-blur-md rounded-xl p-6">
             <div className="text-3xl font-bold text-purple-600 dark:text-purple-400 mb-2">
-              {allSkills.reduce((acc, skill) => acc + skill.projects, 0)}
+              250+
             </div>
             <div className="text-gray-600 dark:text-gray-400">Total Projects</div>
           </div>
           <div className="text-center bg-white/80 dark:bg-gray-800/80 backdrop-blur-md rounded-xl p-6">
             <div className="text-3xl font-bold text-orange-600 dark:text-orange-400 mb-2">
-              {Object.keys(skillCategories).length}
+              4
             </div>
             <div className="text-gray-600 dark:text-gray-400">Categories</div>
           </div>

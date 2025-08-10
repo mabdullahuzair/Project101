@@ -47,8 +47,8 @@ const GridSkillCards = () => {
         { name: 'RESTful APIs', level: 85 }
       ],
       tools: ['Postman', 'Docker', 'AWS'],
-      experience: '2+ years',
-      projects: 12
+      experience: '1 year',
+      projects: 5
     },
     {
       id: 'programming',

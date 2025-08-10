@@ -88,11 +88,16 @@ const ModernNavbar = ({ darkMode, toggleDarkMode }) => {
                   <button
                     key={item.id}
                     onClick={() => scrollToSection(item.id)}
-                    className={`relative px-4 py-2 lg:px-6 lg:py-3 rounded-xl font-medium transition-all duration-300 group ${
+                    className={`relative inline-flex items-center justify-center px-4 py-2 lg:px-6 lg:py-3 rounded-xl font-medium transition-all duration-300 group min-w-max ${
                       isActive
                         ? 'text-white'
                         : 'text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400'
                     }`}
+                    style={{
+                      display: 'inline-flex',
+                      minWidth: 'max-content',
+                      height: 'auto'
+                    }}
                   >
                     {/* Active background */}
                     {isActive && (

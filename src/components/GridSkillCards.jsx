@@ -8,45 +8,30 @@ import {
   Wrench,
   GitBranch,
   Brain,
-  Layers,
-  Globe,
-  Shield,
-  Smartphone,
-  Cloud,
-  Cpu,
-  HardDrive,
-  Terminal,
-  Users,
-  Zap,
   TrendingUp
 } from 'lucide-react';
 
 const GridSkillCards = () => {
   const [flippedCards, setFlippedCards] = useState(new Set());
-  const [hoveredCard, setHoveredCard] = useState(null);
   const [isVisible, setIsVisible] = useState(false);
-  const [draggedCard, setDraggedCard] = useState(null);
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const sectionRef = useRef(null);
 
-  // 8 skill categories as requested
+  // 8 skill categories from CV
   const skillCategories = [
     {
       id: 'frontend',
       title: 'Frontend Development',
       icon: Palette,
-      color: '#3B82F6',
       gradient: 'from-blue-500 to-purple-500',
-      description: 'Modern UI/UX development',
       skills: [
-        { name: 'HTML5', level: 95, description: 'Semantic markup' },
-        { name: 'CSS3', level: 92, description: 'Styling & animations' },
-        { name: 'JavaScript', level: 88, description: 'Interactive functionality' },
-        { name: 'React', level: 85, description: 'Component library' },
-        { name: 'Bootstrap', level: 90, description: 'CSS framework' },
-        { name: 'Tailwind CSS', level: 85, description: 'Utility framework' }
+        { name: 'HTML5', level: 95 },
+        { name: 'CSS3', level: 92 },
+        { name: 'JavaScript', level: 88 },
+        { name: 'React', level: 85 },
+        { name: 'Bootstrap', level: 90 },
+        { name: 'Tailwind CSS', level: 85 }
       ],
-      tools: ['VS Code', 'Chrome DevTools', 'Figma', 'Sass'],
+      tools: ['VS Code', 'Chrome DevTools', 'Figma'],
       experience: '2+ years',
       projects: 20
     },
@@ -54,16 +39,14 @@ const GridSkillCards = () => {
       id: 'backend',
       title: 'Backend Development',
       icon: Server,
-      color: '#10B981',
       gradient: 'from-green-500 to-emerald-500',
-      description: 'Server-side architecture',
       skills: [
-        { name: 'PHP', level: 82, description: 'Server scripting' },
-        { name: 'Node.js', level: 85, description: 'JavaScript runtime' },
-        { name: 'Express.js', level: 80, description: 'Web framework' },
-        { name: 'RESTful APIs', level: 85, description: 'API development' }
+        { name: 'PHP', level: 82 },
+        { name: 'Node.js', level: 85 },
+        { name: 'Express.js', level: 80 },
+        { name: 'RESTful APIs', level: 85 }
       ],
-      tools: ['Postman', 'Docker', 'AWS', 'PM2'],
+      tools: ['Postman', 'Docker', 'AWS'],
       experience: '2+ years',
       projects: 12
     },
@@ -71,16 +54,14 @@ const GridSkillCards = () => {
       id: 'programming',
       title: 'Programming Languages',
       icon: FileCode,
-      color: '#F59E0B',
       gradient: 'from-orange-500 to-amber-500',
-      description: 'Core programming skills',
       skills: [
-        { name: 'JavaScript', level: 88, description: 'Primary language' },
-        { name: 'Python', level: 75, description: 'Scripting & ML' },
-        { name: 'C++', level: 70, description: 'System programming' },
-        { name: 'C', level: 68, description: 'Low-level programming' }
+        { name: 'JavaScript', level: 88 },
+        { name: 'Python', level: 75 },
+        { name: 'C++', level: 70 },
+        { name: 'C', level: 68 }
       ],
-      tools: ['VS Code', 'IntelliJ IDEA', 'PyCharm', 'Code::Blocks'],
+      tools: ['VS Code', 'IntelliJ IDEA', 'PyCharm'],
       experience: '2+ years',
       projects: 25
     },
@@ -88,14 +69,12 @@ const GridSkillCards = () => {
       id: 'database',
       title: 'Databases',
       icon: Database,
-      color: '#8B5CF6',
       gradient: 'from-purple-500 to-violet-500',
-      description: 'Data management systems',
       skills: [
-        { name: 'MySQL', level: 80, description: 'Relational database' },
-        { name: 'MongoDB', level: 75, description: 'NoSQL database' }
+        { name: 'MySQL', level: 80 },
+        { name: 'MongoDB', level: 75 }
       ],
-      tools: ['phpMyAdmin', 'MongoDB Compass', 'MySQL Workbench'],
+      tools: ['phpMyAdmin', 'MongoDB Compass'],
       experience: '2+ years',
       projects: 16
     },
@@ -103,16 +82,14 @@ const GridSkillCards = () => {
       id: 'tools',
       title: 'Tools & Platforms',
       icon: Wrench,
-      color: '#EF4444',
       gradient: 'from-red-500 to-pink-500',
-      description: 'Development ecosystem',
       skills: [
-        { name: 'Git & GitHub', level: 90, description: 'Version control' },
-        { name: 'VS Code', level: 95, description: 'Code editor' },
-        { name: 'Postman', level: 85, description: 'API testing' },
-        { name: 'IntelliJ IDEA', level: 80, description: 'IDE' }
+        { name: 'Git & GitHub', level: 90 },
+        { name: 'VS Code', level: 95 },
+        { name: 'Postman', level: 85 },
+        { name: 'IntelliJ IDEA', level: 80 }
       ],
-      tools: ['Terminal', 'Figma', 'Slack', 'Notion'],
+      tools: ['Terminal', 'Figma', 'Slack'],
       experience: '2+ years',
       projects: 30
     },
@@ -120,16 +97,14 @@ const GridSkillCards = () => {
       id: 'practices',
       title: 'Development Practices',
       icon: GitBranch,
-      color: '#06B6D4',
       gradient: 'from-cyan-500 to-blue-500',
-      description: 'Best practices & methodologies',
       skills: [
-        { name: 'Agile Methodology', level: 80, description: 'Project methodology' },
-        { name: 'Version Control', level: 90, description: 'Git workflow' },
-        { name: 'Debugging & Testing', level: 85, description: 'Quality assurance' },
-        { name: 'Responsive Design', level: 88, description: 'Mobile-first approach' }
+        { name: 'Agile Methodology', level: 80 },
+        { name: 'Version Control', level: 90 },
+        { name: 'Debugging & Testing', level: 85 },
+        { name: 'Responsive Design', level: 88 }
       ],
-      tools: ['Git', 'Jira', 'GitHub Actions', 'Chrome DevTools'],
+      tools: ['Git', 'GitHub Actions', 'Chrome DevTools'],
       experience: '2+ years',
       projects: 20
     },
@@ -137,29 +112,25 @@ const GridSkillCards = () => {
       id: 'ml',
       title: 'Machine Learning',
       icon: Brain,
-      color: '#EC4899',
       gradient: 'from-pink-500 to-rose-500',
-      description: 'AI & data science',
       skills: [
-        { name: 'Python ML', level: 68, description: 'Machine learning with Python' },
-        { name: 'Data Analysis', level: 65, description: 'Data processing' }
+        { name: 'Python ML', level: 68 },
+        { name: 'Data Analysis', level: 65 }
       ],
-      tools: ['Python', 'Jupyter', 'pandas', 'scikit-learn'],
+      tools: ['Python', 'Jupyter', 'pandas'],
       experience: '1+ years',
       projects: 5
     },
     {
-      id: 'other',
+      id: 'seo',
       title: 'SEO & Optimization',
       icon: TrendingUp,
-      color: '#059669',
       gradient: 'from-emerald-500 to-green-500',
-      description: 'Web optimization',
       skills: [
-        { name: 'SEO Optimization', level: 85, description: 'Search engine optimization' },
-        { name: 'Web Performance', level: 80, description: 'Site optimization' }
+        { name: 'SEO Optimization', level: 85 },
+        { name: 'Web Performance', level: 80 }
       ],
-      tools: ['Google Analytics', 'PageSpeed Insights', 'SEMrush'],
+      tools: ['Google Analytics', 'PageSpeed Insights'],
       experience: '2+ years',
       projects: 15
     }
@@ -194,201 +165,128 @@ const GridSkillCards = () => {
     });
   };
 
-  const handleMouseMove = (e, cardId) => {
-    if (draggedCard === cardId) {
-      setMousePosition({ x: e.clientX, y: e.clientY });
-    }
-  };
-
-  const handleMouseDown = (cardId) => {
-    setDraggedCard(cardId);
-  };
-
-  const handleMouseUp = () => {
-    setDraggedCard(null);
-  };
-
   const SkillCard = ({ category, index }) => {
     const isFlipped = flippedCards.has(category.id);
-    const isHovered = hoveredCard === category.id;
-    const isDragged = draggedCard === category.id;
     const IconComponent = category.icon;
 
     return (
-      <div
-        className={`group relative h-64 w-full cursor-pointer transition-all duration-700 ${
-          isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-        } ${isDragged ? 'scale-110 z-50' : 'hover:scale-105'}`}
-        style={{
-          animationDelay: `${index * 100}ms`,
-          perspective: '1000px',
-          transformStyle: 'preserve-3d',
-          transform: isDragged
-            ? `scale(1.1) rotate(${(mousePosition.x % 10) - 5}deg)`
-            : isHovered
-            ? `rotate(${Math.sin(Date.now() * 0.001) * 2}deg)`
-            : 'rotate(0deg)'
-        }}
-        onClick={() => handleCardClick(category.id)}
-        onMouseDown={() => handleMouseDown(category.id)}
-        onMouseUp={handleMouseUp}
-        onMouseMove={(e) => handleMouseMove(e, category.id)}
-        onMouseEnter={() => setHoveredCard(category.id)}
-        onMouseLeave={() => setHoveredCard(null)}
-      >
+      <div className="skill-card-container">
         <div
-          className="relative w-full h-full transition-transform duration-700"
-          style={{
-            transformStyle: 'preserve-3d',
-            transform: isFlipped ? 'rotateY(180deg)' : 'rotateY(0deg)',
-            perspective: '1000px'
-          }}
+          className={`skill-card ${isFlipped ? 'flipped' : ''} ${
+            isVisible ? 'visible' : ''
+          }`}
+          onClick={() => handleCardClick(category.id)}
+          style={{ animationDelay: `${index * 150}ms` }}
         >
           {/* Front Face */}
-          <div
-            className={`absolute inset-0 w-full h-full bg-gradient-to-br ${category.gradient} rounded-xl shadow-xl border border-white/20 overflow-hidden`}
-            style={{
-              backfaceVisibility: 'hidden',
-              WebkitBackfaceVisibility: 'hidden',
-              transform: 'rotateY(0deg)'
-            }}
-          >
-            {/* Background Pattern */}
-            <div className="absolute inset-0 opacity-10">
-              <div className="absolute top-0 right-0 w-24 h-24 bg-white rounded-full transform translate-x-12 -translate-y-12"></div>
-              <div className="absolute bottom-0 left-0 w-16 h-16 bg-white rounded-full transform -translate-x-8 translate-y-8"></div>
-            </div>
-
-            <div className="p-4 h-full flex flex-col relative z-10">
+          <div className={`card-face card-front bg-gradient-to-br ${category.gradient}`}>
+            <div className="card-content">
               {/* Header */}
-              <div className="flex items-center justify-between mb-3">
-                <div 
-                  className="w-12 h-12 bg-white/20 rounded-lg flex items-center justify-center backdrop-blur-sm"
-                  style={{ backgroundColor: `${category.color}30` }}
-                >
+              <div className="card-header">
+                <div className="icon-container">
                   <IconComponent size={24} className="text-white" />
                 </div>
-                <div className="text-right">
-                  <div className="text-white/80 text-xs font-medium">Click to flip</div>
+                <div className="flip-indicator">
+                  <span className="text-white/80 text-xs">Click to flip</span>
                 </div>
               </div>
 
               {/* Title */}
-              <h3 className="text-lg font-bold text-white mb-2">{category.title}</h3>
-              <p className="text-white/90 text-xs mb-4">{category.description}</p>
+              <h3 className="card-title">{category.title}</h3>
 
               {/* Skills List */}
-              <div className="space-y-2 flex-grow">
+              <div className="skills-list">
                 {category.skills.slice(0, 4).map((skill, idx) => (
-                  <div key={idx} className="flex items-center justify-between">
-                    <span className="text-white text-xs font-medium">{skill.name}</span>
-                    <div className="flex items-center space-x-2">
-                      <div className="w-12 bg-white/20 rounded-full h-1">
+                  <div key={idx} className="skill-item">
+                    <span className="skill-name">{skill.name}</span>
+                    <div className="skill-progress">
+                      <div className="progress-track">
                         <div
-                          className="h-1 bg-white rounded-full transition-all duration-1000"
-                          style={{ width: isVisible ? `${skill.level}%` : '0%' }}
+                          className="progress-fill"
+                          style={{
+                            width: isVisible ? `${skill.level}%` : '0%',
+                            transitionDelay: `${(index * 150) + (idx * 100)}ms`
+                          }}
                         />
                       </div>
-                      <span className="text-white/80 text-xs font-medium">{skill.level}%</span>
+                      <span className="skill-percentage">{skill.level}%</span>
                     </div>
                   </div>
                 ))}
                 {category.skills.length > 4 && (
-                  <div className="text-white/70 text-xs text-center mt-2">
+                  <div className="more-skills">
                     +{category.skills.length - 4} more skills
                   </div>
                 )}
               </div>
 
               {/* Stats */}
-              <div className="mt-3 pt-3 border-t border-white/20">
-                <div className="flex justify-between text-white/90 text-xs">
-                  <div>
-                    <div className="font-bold">{category.projects}</div>
-                    <div className="text-xs opacity-80">Projects</div>
-                  </div>
-                  <div>
-                    <div className="font-bold">{category.experience}</div>
-                    <div className="text-xs opacity-80">Experience</div>
-                  </div>
+              <div className="card-stats">
+                <div className="stat-item">
+                  <div className="stat-value">{category.projects}</div>
+                  <div className="stat-label">Projects</div>
+                </div>
+                <div className="stat-item">
+                  <div className="stat-value">{category.experience}</div>
+                  <div className="stat-label">Experience</div>
                 </div>
               </div>
             </div>
           </div>
 
           {/* Back Face */}
-          <div
-            className={`absolute inset-0 w-full h-full bg-gradient-to-br ${category.gradient} rounded-xl shadow-xl border border-white/20 overflow-hidden`}
-            style={{
-              backfaceVisibility: 'hidden',
-              WebkitBackfaceVisibility: 'hidden',
-              transform: 'rotateY(180deg)'
-            }}
-          >
-            {/* Background Pattern */}
-            <div className="absolute inset-0 opacity-10">
-              <div className="absolute top-0 left-0 w-24 h-24 bg-white rounded-full transform -translate-x-12 -translate-y-12"></div>
-              <div className="absolute bottom-0 right-0 w-16 h-16 bg-white rounded-full transform translate-x-8 translate-y-8"></div>
-            </div>
-
-            <div className="p-4 h-full flex flex-col relative z-10">
+          <div className={`card-face card-back bg-gradient-to-br ${category.gradient}`}>
+            <div className="card-content">
               {/* Header */}
-              <div className="flex items-center space-x-3 mb-3">
-                <IconComponent size={24} className="text-white" />
+              <div className="back-header">
+                <IconComponent size={28} className="text-white" />
                 <div>
-                  <h3 className="text-lg font-bold text-white">{category.title}</h3>
-                  <p className="text-white/80 text-xs">Detailed Information</p>
+                  <h3 className="back-title">{category.title}</h3>
+                  <p className="back-subtitle">Detailed Information</p>
                 </div>
               </div>
 
               {/* All Skills */}
-              <div className="mb-4">
-                <h4 className="text-white font-semibold text-sm mb-2">Skills:</h4>
-                <div className="space-y-1 max-h-24 overflow-y-auto">
+              <div className="all-skills">
+                <h4 className="section-title">All Skills:</h4>
+                <div className="skills-detailed">
                   {category.skills.map((skill, idx) => (
-                    <div key={idx} className="flex justify-between items-center">
-                      <div>
-                        <span className="text-white text-xs">{skill.name}</span>
-                        <p className="text-white/70 text-xs">{skill.description}</p>
-                      </div>
-                      <span className="text-white font-bold text-xs">{skill.level}%</span>
+                    <div key={idx} className="skill-detailed">
+                      <span className="skill-name-detailed">{skill.name}</span>
+                      <span className="skill-level-detailed">{skill.level}%</span>
                     </div>
                   ))}
                 </div>
               </div>
 
               {/* Tools */}
-              <div className="mb-4">
-                <h4 className="text-white font-semibold text-sm mb-2">Tools:</h4>
-                <div className="flex flex-wrap gap-1">
+              <div className="tools-section">
+                <h4 className="section-title">Tools:</h4>
+                <div className="tools-list">
                   {category.tools.map((tool, idx) => (
-                    <span
-                      key={idx}
-                      className="px-2 py-1 bg-white/20 text-white text-xs rounded-full backdrop-blur-sm"
-                    >
+                    <span key={idx} className="tool-tag">
                       {tool}
                     </span>
                   ))}
                 </div>
               </div>
 
-              {/* Experience Details */}
-              <div className="mt-auto">
-                <div className="grid grid-cols-2 gap-2 text-center">
-                  <div className="bg-white/10 rounded-lg p-2">
-                    <div className="text-white font-bold text-sm">{category.projects}</div>
-                    <div className="text-white/80 text-xs">Projects</div>
+              {/* Experience */}
+              <div className="experience-section">
+                <div className="experience-grid">
+                  <div className="experience-item">
+                    <div className="experience-value">{category.projects}</div>
+                    <div className="experience-label">Projects</div>
                   </div>
-                  <div className="bg-white/10 rounded-lg p-2">
-                    <div className="text-white font-bold text-sm">{category.experience}</div>
-                    <div className="text-white/80 text-xs">Experience</div>
+                  <div className="experience-item">
+                    <div className="experience-value">{category.experience}</div>
+                    <div className="experience-label">Experience</div>
                   </div>
                 </div>
               </div>
 
-              {/* Click indicator */}
-              <div className="text-center mt-2">
-                <div className="text-white/60 text-xs">Click to flip back</div>
+              <div className="flip-back-indicator">
+                <span className="text-white/60 text-xs">Click to flip back</span>
               </div>
             </div>
           </div>
@@ -398,20 +296,20 @@ const GridSkillCards = () => {
   };
 
   return (
-    <div ref={sectionRef} className="py-8 w-full">
-      {/* Grid of Cards - 3 columns on larger screens */}
-      <div className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 w-full max-w-7xl mx-auto px-4 transition-all duration-1000 ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
+    <div ref={sectionRef} className="grid-skills-container">
+      {/* Grid System */}
+      <div className={`skills-grid ${isVisible ? 'visible' : ''}`}>
         {skillCategories.map((category, index) => (
           <SkillCard key={category.id} category={category} index={index} />
         ))}
       </div>
 
       {/* Instructions */}
-      <div className={`mt-8 text-center transition-all duration-1000 delay-500 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-20'}`}>
-        <p className="text-gray-600 dark:text-gray-400 text-sm mb-2">
-          Click cards to flip • Drag to tilt • Hover for animations
+      <div className={`instructions ${isVisible ? 'visible' : ''}`}>
+        <p className="instruction-text">
+          Click cards to flip and see detailed information
         </p>
-        <div className="flex justify-center space-x-4 text-xs text-gray-500 dark:text-gray-500">
+        <div className="stats-summary">
           <span>8 Categories</span>
           <span>•</span>
           <span>{skillCategories.reduce((acc, cat) => acc + cat.skills.length, 0)} Skills</span>
@@ -419,6 +317,367 @@ const GridSkillCards = () => {
           <span>{skillCategories.reduce((acc, cat) => acc + cat.projects, 0)}+ Projects</span>
         </div>
       </div>
+
+      {/* CSS Styles */}
+      <style jsx>{`
+        .grid-skills-container {
+          width: 100%;
+          padding: 2rem 0;
+        }
+
+        .skills-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+          gap: 1.5rem;
+          max-width: 1200px;
+          margin: 0 auto;
+          padding: 0 1rem;
+          opacity: 0;
+          transform: translateY(20px);
+          transition: all 0.8s ease-out;
+        }
+
+        .skills-grid.visible {
+          opacity: 1;
+          transform: translateY(0);
+        }
+
+        .skill-card-container {
+          perspective: 1000px;
+          height: 280px;
+        }
+
+        .skill-card {
+          position: relative;
+          width: 100%;
+          height: 100%;
+          transform-style: preserve-3d;
+          transition: transform 0.6s ease-in-out;
+          cursor: pointer;
+          opacity: 0;
+          transform: translateY(30px);
+          animation: slideInUp 0.6s ease-out forwards;
+        }
+
+        .skill-card.visible {
+          opacity: 1;
+          transform: translateY(0);
+        }
+
+        .skill-card.flipped {
+          transform: rotateY(180deg);
+        }
+
+        .skill-card:hover {
+          transform: scale(1.02);
+        }
+
+        .skill-card.flipped:hover {
+          transform: rotateY(180deg) scale(1.02);
+        }
+
+        .card-face {
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          backface-visibility: hidden;
+          -webkit-backface-visibility: hidden;
+          border-radius: 1rem;
+          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+          border: 1px solid rgba(255, 255, 255, 0.2);
+          overflow: hidden;
+        }
+
+        .card-front {
+          transform: rotateY(0deg);
+        }
+
+        .card-back {
+          transform: rotateY(180deg);
+        }
+
+        .card-content {
+          padding: 1.5rem;
+          height: 100%;
+          display: flex;
+          flex-direction: column;
+          position: relative;
+          z-index: 10;
+        }
+
+        .card-header {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-bottom: 1rem;
+        }
+
+        .icon-container {
+          width: 3rem;
+          height: 3rem;
+          background: rgba(255, 255, 255, 0.2);
+          border-radius: 0.75rem;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          backdrop-filter: blur(10px);
+        }
+
+        .flip-indicator {
+          text-align: right;
+        }
+
+        .card-title {
+          font-size: 1.25rem;
+          font-weight: bold;
+          color: white;
+          margin-bottom: 1rem;
+        }
+
+        .skills-list {
+          flex-grow: 1;
+          space-y: 0.75rem;
+        }
+
+        .skill-item {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-bottom: 0.75rem;
+        }
+
+        .skill-name {
+          color: white;
+          font-size: 0.875rem;
+          font-weight: 500;
+        }
+
+        .skill-progress {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+        }
+
+        .progress-track {
+          width: 3rem;
+          height: 0.25rem;
+          background: rgba(255, 255, 255, 0.2);
+          border-radius: 9999px;
+          overflow: hidden;
+        }
+
+        .progress-fill {
+          height: 100%;
+          background: white;
+          border-radius: 9999px;
+          transition: width 1s ease-out;
+        }
+
+        .skill-percentage {
+          color: rgba(255, 255, 255, 0.8);
+          font-size: 0.75rem;
+          font-weight: 500;
+        }
+
+        .more-skills {
+          color: rgba(255, 255, 255, 0.7);
+          font-size: 0.75rem;
+          text-align: center;
+          margin-top: 0.5rem;
+        }
+
+        .card-stats {
+          display: flex;
+          justify-content: space-between;
+          margin-top: 1rem;
+          padding-top: 1rem;
+          border-top: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .stat-item {
+          text-align: center;
+        }
+
+        .stat-value {
+          font-weight: bold;
+          color: white;
+          font-size: 1rem;
+        }
+
+        .stat-label {
+          font-size: 0.75rem;
+          color: rgba(255, 255, 255, 0.8);
+        }
+
+        .back-header {
+          display: flex;
+          align-items: center;
+          gap: 0.75rem;
+          margin-bottom: 1rem;
+        }
+
+        .back-title {
+          font-size: 1.125rem;
+          font-weight: bold;
+          color: white;
+        }
+
+        .back-subtitle {
+          font-size: 0.75rem;
+          color: rgba(255, 255, 255, 0.8);
+        }
+
+        .all-skills {
+          margin-bottom: 1rem;
+        }
+
+        .section-title {
+          color: white;
+          font-weight: 600;
+          font-size: 0.875rem;
+          margin-bottom: 0.5rem;
+        }
+
+        .skills-detailed {
+          max-height: 5rem;
+          overflow-y: auto;
+        }
+
+        .skill-detailed {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-bottom: 0.25rem;
+        }
+
+        .skill-name-detailed {
+          color: white;
+          font-size: 0.75rem;
+        }
+
+        .skill-level-detailed {
+          color: white;
+          font-weight: bold;
+          font-size: 0.75rem;
+        }
+
+        .tools-section {
+          margin-bottom: 1rem;
+        }
+
+        .tools-list {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 0.25rem;
+        }
+
+        .tool-tag {
+          padding: 0.25rem 0.5rem;
+          background: rgba(255, 255, 255, 0.2);
+          color: white;
+          font-size: 0.75rem;
+          border-radius: 9999px;
+          backdrop-filter: blur(10px);
+        }
+
+        .experience-section {
+          margin-top: auto;
+        }
+
+        .experience-grid {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 0.5rem;
+        }
+
+        .experience-item {
+          background: rgba(255, 255, 255, 0.1);
+          border-radius: 0.5rem;
+          padding: 0.75rem;
+          text-align: center;
+        }
+
+        .experience-value {
+          color: white;
+          font-weight: bold;
+          font-size: 0.875rem;
+        }
+
+        .experience-label {
+          color: rgba(255, 255, 255, 0.8);
+          font-size: 0.75rem;
+        }
+
+        .flip-back-indicator {
+          text-align: center;
+          margin-top: 0.5rem;
+        }
+
+        .instructions {
+          text-align: center;
+          margin-top: 2rem;
+          opacity: 0;
+          transform: translateY(10px);
+          transition: all 0.6s ease-out 0.8s;
+        }
+
+        .instructions.visible {
+          opacity: 1;
+          transform: translateY(0);
+        }
+
+        .instruction-text {
+          color: var(--text-muted);
+          font-size: 0.875rem;
+          margin-bottom: 0.5rem;
+        }
+
+        .stats-summary {
+          display: flex;
+          justify-content: center;
+          gap: 1rem;
+          font-size: 0.75rem;
+          color: var(--text-muted-more);
+        }
+
+        @keyframes slideInUp {
+          from {
+            opacity: 0;
+            transform: translateY(30px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+
+        @media (max-width: 768px) {
+          .skills-grid {
+            grid-template-columns: 1fr;
+            gap: 1rem;
+          }
+          
+          .skill-card-container {
+            height: 260px;
+          }
+          
+          .card-content {
+            padding: 1.25rem;
+          }
+        }
+
+        @media (min-width: 769px) and (max-width: 1024px) {
+          .skills-grid {
+            grid-template-columns: repeat(2, 1fr);
+          }
+        }
+
+        @media (min-width: 1025px) {
+          .skills-grid {
+            grid-template-columns: repeat(3, 1fr);
+          }
+        }
+      `}</style>
     </div>
   );
 };

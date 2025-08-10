@@ -253,9 +253,9 @@ const GridSkillCards = () => {
               <div className="absolute bottom-0 left-0 w-16 h-16 bg-white rounded-full transform -translate-x-8 translate-y-8"></div>
             </div>
 
-            <div className="p-5 h-full flex flex-col relative z-10">
+            <div className="p-4 h-full flex flex-col relative z-10">
               {/* Header */}
-              <div className="flex items-center justify-between mb-4">
+              <div className="flex items-center justify-between mb-3">
                 <div 
                   className="w-12 h-12 bg-white/20 rounded-lg flex items-center justify-center backdrop-blur-sm"
                   style={{ backgroundColor: `${category.color}30` }}

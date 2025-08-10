@@ -131,8 +131,8 @@ const GridSkillCards = () => {
         { name: 'Web Performance', level: 80 }
       ],
       tools: ['Google Analytics', 'PageSpeed Insights'],
-      experience: '2+ years',
-      projects: 15
+      experience: '1 year',
+      projects: 5
     }
   ];
 

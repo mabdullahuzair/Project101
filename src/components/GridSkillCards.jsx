@@ -118,7 +118,7 @@ const GridSkillCards = () => {
         { name: 'Data Analysis', level: 65 }
       ],
       tools: ['Python', 'Jupyter', 'pandas'],
-      experience: '1+ years',
+      experience: '1 year',
       projects: 5
     },
     {

@@ -291,7 +291,7 @@ const QwertySkillsKeyboard = () => {
 
       {/* 3D Draggable Keyboard */}
       <div 
-        className="bg-gradient-to-br from-gray-800 via-gray-900 to-black rounded-3xl p-6 md:p-8 shadow-2xl border border-gray-700 transition-transform duration-300 cursor-grab active:cursor-grabbing"
+        className="bg-gradient-to-br from-gray-800 via-gray-900 to-black rounded-2xl p-4 md:p-6 shadow-2xl border border-gray-700 transition-transform duration-300 cursor-grab active:cursor-grabbing"
         style={{
           transform: `perspective(1000px) rotateX(${keyboardRotation.x}deg) rotateY(${keyboardRotation.y}deg)`,
           transformStyle: 'preserve-3d'

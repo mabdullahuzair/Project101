@@ -62,8 +62,8 @@ const GridSkillCards = () => {
         { name: 'C', level: 68 }
       ],
       tools: ['VS Code', 'IntelliJ IDEA', 'PyCharm'],
-      experience: '2+ years',
-      projects: 25
+      experience: '1 year',
+      projects: 5
     },
     {
       id: 'database',

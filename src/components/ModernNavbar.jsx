@@ -83,16 +83,23 @@ const ModernNavbar = ({ darkMode, toggleDarkMode }) => {
               {navItems.map((item) => {
                 const IconComponent = item.icon;
                 const isActive = activeSection === item.id;
-                
+
                 return (
                   <button
                     key={item.id}
                     onClick={() => scrollToSection(item.id)}
-                    className={`relative px-4 py-2 lg:px-6 lg:py-3 rounded-xl font-medium transition-all duration-300 group ${
+                    className={`relative px-4 py-2 lg:px-6 lg:py-3 rounded-xl font-medium transition-all duration-300 group min-w-fit whitespace-nowrap ${
                       isActive
                         ? 'text-white'
                         : 'text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400'
                     }`}
+                    style={{
+                      display: 'flex !important',
+                      width: 'auto !important',
+                      height: 'auto !important',
+                      minWidth: 'fit-content !important',
+                      visibility: 'visible !important'
+                    }}
                   >
                     {/* Active background */}
                     {isActive && (

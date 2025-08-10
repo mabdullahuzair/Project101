@@ -24,6 +24,8 @@ import {
   Play,
   Pause
 } from 'lucide-react';
+import Keyboard3D from './Keyboard3D';
+import FlippingSkillCards from './FlippingSkillCards';
 
 const CleanSkills = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -292,7 +294,7 @@ const CleanSkills = () => {
     <section
       id="skills"
       ref={sectionRef}
-      className="py-20 relative overflow-hidden min-h-screen bg-gradient-to-br from-gray-50 to-blue-50 dark:from-gray-900 dark:to-blue-900"
+      className="py-20 relative overflow-hidden min-h-screen bg-white dark:bg-gray-900 transition-colors duration-300"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Header */}
@@ -318,93 +320,30 @@ const CleanSkills = () => {
           </div>
         </div>
 
-        {/* Virtual Keyboard */}
+        {/* 3D Interactive Keyboard */}
         <div className={`mb-12 transition-all duration-1000 delay-300 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-20'}`}>
           <h3 className="text-2xl font-bold text-center mb-8 text-gray-800 dark:text-white">
-            Interactive Skills Keyboard
+            3D Interactive Skills Keyboard
           </h3>
-          <div className="bg-gray-800 rounded-2xl p-6 max-w-4xl mx-auto shadow-2xl">
-            <div className="space-y-2">
-              {keyboardLayout.map((row, rowIndex) => (
-                <div
-                  key={rowIndex}
-                  className="flex justify-center gap-2"
-                  style={{
-                    marginLeft: rowIndex === 1 ? '20px' : rowIndex === 2 ? '40px' : '0'
-                  }}
-                >
-                  {row.map((key) => {
-                    const skill = skillKeyMap[key];
-                    const isActive = !!skill;
-                    const isFlipped = flippedCard === key;
-                    
-                    return (
-                      <button
-                        key={key}
-                        onClick={() => handleKeyClick(key)}
-                        className={`w-12 h-12 rounded-lg font-bold text-sm transition-all duration-200 transform hover:scale-105 ${
-                          isActive
-                            ? isFlipped
-                              ? 'bg-yellow-500 text-black shadow-lg scale-105'
-                              : 'bg-gradient-to-br from-blue-500 to-purple-600 text-white shadow-lg'
-                            : 'bg-gray-600 text-gray-300 hover:bg-gray-500'
-                        }`}
-                        disabled={!isActive}
-                        title={skill ? `${skill.name} (${skill.level}%)` : key}
-                      >
-                        {key}
-                      </button>
-                    );
-                  })}
-                </div>
-              ))}
-            </div>
-            <div className="text-center mt-4">
-              <div className="text-sm text-gray-400">
-                Click colored keys to explore skills • {allSkills.length} skills mapped
-              </div>
+          <div className="max-w-6xl mx-auto">
+            <Keyboard3D
+              skills={allSkills}
+              onSkillClick={(skill) => setFlippedCard(flippedCard === skill.key ? null : skill.key)}
+            />
+          </div>
+          <div className="text-center mt-4">
+            <div className="text-sm text-gray-600 dark:text-gray-400">
+              Drag to rotate • Click colored keys to explore skills • {allSkills.length} skills mapped
             </div>
           </div>
         </div>
 
-        {/* Category Filter */}
-        <div className={`flex flex-wrap justify-center gap-3 mb-12 transition-all duration-1000 delay-500 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-          <button
-            onClick={() => setActiveCategory('all')}
-            className={`px-6 py-3 rounded-xl font-medium transition-all duration-300 ${
-              activeCategory === 'all'
-                ? 'bg-blue-600 text-white shadow-lg transform scale-105'
-                : 'bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-blue-100 dark:hover:bg-blue-900/30'
-            }`}
-          >
-            All Skills ({allSkills.length})
-          </button>
-          
-          {Object.entries(skillCategories).map(([key, category]) => {
-            const IconComponent = category.icon;
-            return (
-              <button
-                key={key}
-                onClick={() => setActiveCategory(key)}
-                className={`px-6 py-3 rounded-xl font-medium transition-all duration-300 flex items-center space-x-2 ${
-                  activeCategory === key
-                    ? 'bg-blue-600 text-white shadow-lg transform scale-105'
-                    : 'bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-blue-100 dark:hover:bg-blue-900/30'
-                }`}
-              >
-                <IconComponent size={16} />
-                <span>{category.title}</span>
-                <span className="text-xs opacity-80">({category.skills.length})</span>
-              </button>
-            );
-          })}
-        </div>
-
-        {/* Skills Grid */}
-        <div className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 transition-all duration-1000 delay-700 ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
-          {displayedSkills.map((skill, index) => (
-            <SkillCard key={skill.key} skill={skill} index={index} />
-          ))}
+        {/* Flipping Skill Cards */}
+        <div className={`mb-12 transition-all duration-1000 delay-500 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-20'}`}>
+          <h3 className="text-2xl font-bold text-center mb-8 text-gray-800 dark:text-white">
+            Skill Cards - Click to Flip!
+          </h3>
+          <FlippingSkillCards />
         </div>
 
         {/* Stats Summary */}

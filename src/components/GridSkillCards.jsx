@@ -216,7 +216,7 @@ const GridSkillCards = () => {
 
     return (
       <div
-        className={`group relative h-72 cursor-pointer transition-all duration-700 ${
+        className={`group relative h-64 cursor-pointer transition-all duration-700 ${
           isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
         } ${isDragged ? 'scale-110 z-50' : 'hover:scale-105'}`}
         style={{

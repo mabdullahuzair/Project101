@@ -2,57 +2,58 @@ import React, { useState, useEffect, useRef } from 'react';
 
 const QwertySkillsKeyboard = () => {
   const [activeKey, setActiveKey] = useState(null);
-  const [hoveredKey, setHoveredKey] = useState(null);
   const [activeSkill, setActiveSkill] = useState(null);
-  const [keyboardRotation, setKeyboardRotation] = useState(0);
+  const [keyboardRotation, setKeyboardRotation] = useState({ x: 0, y: 0 });
   const [isVisible, setIsVisible] = useState(false);
+  const [isDragging, setIsDragging] = useState(false);
+  const [lastMousePosition, setLastMousePosition] = useState({ x: 0, y: 0 });
   const keyboardRef = useRef(null);
 
-  // Skills data mapped to keyboard keys
+  // Skills data mapped to keyboard keys - based on CV
   const skillMapping = {
     // Top row (numbers)
-    '1': { name: 'HTML', category: 'Frontend', level: 95, color: '#E34F26' },
-    '2': { name: 'CSS', category: 'Frontend', level: 92, color: '#1572B6' },
+    '1': { name: 'HTML5', category: 'Frontend', level: 95, color: '#E34F26' },
+    '2': { name: 'CSS3', category: 'Frontend', level: 92, color: '#1572B6' },
     '3': { name: 'JavaScript', category: 'Frontend', level: 88, color: '#F7DF1E' },
     '4': { name: 'React', category: 'Frontend', level: 85, color: '#61DAFB' },
-    '5': { name: 'Node.js', category: 'Backend', level: 85, color: '#339933' },
-    '6': { name: 'Express', category: 'Backend', level: 80, color: '#000000' },
-    '7': { name: 'MongoDB', category: 'Database', level: 75, color: '#47A248' },
-    '8': { name: 'MySQL', category: 'Database', level: 80, color: '#4479A1' },
+    '5': { name: 'Bootstrap', category: 'Frontend', level: 90, color: '#7952B3' },
+    '6': { name: 'Tailwind CSS', category: 'Frontend', level: 85, color: '#06B6D4' },
+    '7': { name: 'PHP', category: 'Backend', level: 82, color: '#777BB4' },
+    '8': { name: 'Node.js', category: 'Backend', level: 85, color: '#339933' },
     '9': { name: 'Python', category: 'Programming', level: 75, color: '#3776AB' },
-    '0': { name: 'PHP', category: 'Backend', level: 82, color: '#777BB4' },
+    '0': { name: 'C++', category: 'Programming', level: 70, color: '#00599C' },
 
     // First row
-    'Q': { name: 'TypeScript', category: 'Programming', level: 78, color: '#3178C6' },
-    'W': { name: 'Vue.js', category: 'Frontend', level: 70, color: '#4FC08D' },
+    'Q': { name: 'MySQL', category: 'Database', level: 80, color: '#4479A1' },
+    'W': { name: 'MongoDB', category: 'Database', level: 75, color: '#47A248' },
     'E': { name: 'Express.js', category: 'Backend', level: 80, color: '#000000' },
-    'R': { name: 'React Native', category: 'Mobile', level: 75, color: '#61DAFB' },
-    'T': { name: 'Tailwind', category: 'Frontend', level: 92, color: '#06B6D4' },
-    'Y': { name: 'Yarn', category: 'Tools', level: 85, color: '#2C8EBB' },
-    'U': { name: 'Ubuntu', category: 'Tools', level: 80, color: '#E95420' },
-    'I': { name: 'IntelliJ', category: 'Tools', level: 75, color: '#000000' },
-    'O': { name: 'OAuth', category: 'Security', level: 78, color: '#EB5424' },
-    'P': { name: 'PostgreSQL', category: 'Database', level: 72, color: '#336791' },
+    'R': { name: 'RESTful APIs', category: 'Backend', level: 85, color: '#25D366' },
+    'T': { name: 'Git & GitHub', category: 'Tools', level: 90, color: '#F05032' },
+    'Y': { name: 'VS Code', category: 'Tools', level: 95, color: '#007ACC' },
+    'U': { name: 'Postman', category: 'Tools', level: 85, color: '#FF6C37' },
+    'I': { name: 'IntelliJ IDEA', category: 'Tools', level: 80, color: '#000000' },
+    'O': { name: 'Machine Learning', category: 'ML', level: 68, color: '#FF6B6B' },
+    'P': { name: 'SEO Optimization', category: 'Marketing', level: 85, color: '#4285F4' },
 
     // Second row
-    'A': { name: 'AWS', category: 'Cloud', level: 70, color: '#FF9900' },
-    'S': { name: 'Sass', category: 'Frontend', level: 88, color: '#CC6699' },
+    'A': { name: 'Agile Methodology', category: 'Practices', level: 80, color: '#06B6D4' },
+    'S': { name: 'Sublime Text', category: 'IDE', level: 85, color: '#FF9800' },
     'D': { name: 'Docker', category: 'DevOps', level: 75, color: '#2496ED' },
-    'F': { name: 'Firebase', category: 'Backend', level: 78, color: '#FFCA28' },
-    'G': { name: 'Git', category: 'Tools', level: 90, color: '#F05032' },
-    'H': { name: 'HTML5', category: 'Frontend', level: 95, color: '#E34F26' },
-    'J': { name: 'jQuery', category: 'Frontend', level: 85, color: '#0769AD' },
+    'F': { name: 'Figma', category: 'Design', level: 80, color: '#F24E1E' },
+    'G': { name: 'GitHub Actions', category: 'CI/CD', level: 70, color: '#2088FF' },
+    'H': { name: 'Heroku', category: 'Cloud', level: 75, color: '#430098' },
+    'J': { name: 'Jupyter', category: 'IDE', level: 70, color: '#F37626' },
     'K': { name: 'Kubernetes', category: 'DevOps', level: 65, color: '#326CE5' },
-    'L': { name: 'Laravel', category: 'Backend', level: 80, color: '#FF2D20' },
+    'L': { name: 'Laravel', category: 'Framework', level: 80, color: '#FF2D20' },
 
     // Third row
-    'Z': { name: 'Zsh', category: 'Tools', level: 85, color: '#89E051' },
-    'X': { name: 'XML', category: 'Data', level: 80, color: '#0060AC' },
-    'C': { name: 'C++', category: 'Programming', level: 70, color: '#00599C' },
-    'V': { name: 'VS Code', category: 'Tools', level: 95, color: '#007ACC' },
-    'B': { name: 'Bootstrap', category: 'Frontend', level: 88, color: '#7952B3' },
-    'N': { name: 'NPM', category: 'Tools', level: 90, color: '#CB3837' },
-    'M': { name: 'MongoDB', category: 'Database', level: 75, color: '#47A248' }
+    'Z': { name: 'Zsh Terminal', category: 'Tools', level: 85, color: '#89E051' },
+    'X': { name: 'Xcode', category: 'IDE', level: 70, color: '#007ACC' },
+    'C': { name: 'Chrome DevTools', category: 'Tools', level: 90, color: '#4285F4' },
+    'V': { name: 'Vue.js', category: 'Frontend', level: 70, color: '#4FC08D' },
+    'B': { name: 'Babel', category: 'Build Tool', level: 75, color: '#F9DC3E' },
+    'N': { name: 'NPM', category: 'Package Manager', level: 90, color: '#CB3837' },
+    'M': { name: 'Material-UI', category: 'UI Library', level: 80, color: '#0081CB' }
   };
 
   // Keyboard layout
@@ -89,12 +90,15 @@ const QwertySkillsKeyboard = () => {
         setActiveSkill(skillMapping[key]);
         
         // Add rotation effect
-        setKeyboardRotation(prev => prev + (Math.random() - 0.5) * 4);
+        setKeyboardRotation(prev => ({
+          x: prev.x + (Math.random() - 0.5) * 6,
+          y: prev.y + (Math.random() - 0.5) * 6
+        }));
         
         // Reset after animation
         setTimeout(() => {
-          setKeyboardRotation(0);
-        }, 300);
+          setKeyboardRotation({ x: 0, y: 0 });
+        }, 400);
       }
     };
 
@@ -116,50 +120,72 @@ const QwertySkillsKeyboard = () => {
     };
   }, []);
 
+  // Mouse drag handlers for 3D rotation
+  const handleMouseDown = (e) => {
+    setIsDragging(true);
+    setLastMousePosition({ x: e.clientX, y: e.clientY });
+  };
+
+  const handleMouseMove = (e) => {
+    if (!isDragging) return;
+
+    const deltaX = e.clientX - lastMousePosition.x;
+    const deltaY = e.clientY - lastMousePosition.y;
+
+    setKeyboardRotation(prev => ({
+      x: Math.max(-45, Math.min(45, prev.x + deltaY * 0.5)),
+      y: Math.max(-45, Math.min(45, prev.y + deltaX * 0.5))
+    }));
+
+    setLastMousePosition({ x: e.clientX, y: e.clientY });
+  };
+
+  const handleMouseUp = () => {
+    setIsDragging(false);
+  };
+
+  useEffect(() => {
+    if (isDragging) {
+      window.addEventListener('mousemove', handleMouseMove);
+      window.addEventListener('mouseup', handleMouseUp);
+    }
+
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener('mouseup', handleMouseUp);
+    };
+  }, [isDragging, lastMousePosition]);
+
   const handleKeyClick = (key) => {
     if (skillMapping[key]) {
       setActiveKey(key);
       setActiveSkill(skillMapping[key]);
       
       // Add rotation effect
-      setKeyboardRotation(prev => prev + (Math.random() - 0.5) * 4);
+      setKeyboardRotation(prev => ({
+        x: prev.x + (Math.random() - 0.5) * 6,
+        y: prev.y + (Math.random() - 0.5) * 6
+      }));
       
       // Reset after animation
       setTimeout(() => {
         setActiveKey(null);
-        setKeyboardRotation(0);
+        setKeyboardRotation({ x: 0, y: 0 });
       }, 500);
-    }
-  };
-
-  const handleKeyHover = (key) => {
-    if (skillMapping[key]) {
-      setHoveredKey(key);
-      setActiveSkill(skillMapping[key]);
-    }
-  };
-
-  const handleKeyLeave = () => {
-    setHoveredKey(null);
-    if (!activeKey) {
-      setActiveSkill(null);
     }
   };
 
   const KeyButton = ({ keyValue, rowIndex, keyIndex }) => {
     const skill = skillMapping[keyValue];
     const isActive = activeKey === keyValue;
-    const isHovered = hoveredKey === keyValue;
     const hasSkill = !!skill;
 
     return (
       <button
         onClick={() => handleKeyClick(keyValue)}
-        onMouseEnter={() => handleKeyHover(keyValue)}
-        onMouseLeave={handleKeyLeave}
         className={`
           relative group transition-all duration-200 transform
-          ${hasSkill ? 'hover:scale-110' : 'hover:scale-105'}
+          ${hasSkill ? 'hover:scale-105' : ''}
           ${isActive ? 'scale-110 animate-pulse' : ''}
           focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50
         `}
@@ -176,17 +202,15 @@ const QwertySkillsKeyboard = () => {
             ${hasSkill 
               ? isActive 
                 ? 'bg-gradient-to-br shadow-2xl transform translate-y-1 border-white scale-110' 
-                : isHovered
-                ? 'bg-gradient-to-br shadow-xl border-white/70 scale-105'
                 : 'bg-gradient-to-br shadow-lg border-gray-600 hover:shadow-xl'
               : 'bg-gray-700 border-gray-600 text-gray-400 hover:bg-gray-600'
             }
             ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}
           `}
           style={{
-            backgroundColor: hasSkill ? (isActive || isHovered ? skill.color : `${skill.color}80`) : undefined,
+            backgroundColor: hasSkill ? (isActive ? skill.color : `${skill.color}80`) : undefined,
             color: hasSkill ? 'white' : undefined,
-            boxShadow: hasSkill && (isActive || isHovered) 
+            boxShadow: hasSkill && isActive 
               ? `0 0 30px ${skill.color}60, 0 8px 25px rgba(0,0,0,0.3)` 
               : undefined
           }}
@@ -232,7 +256,7 @@ const QwertySkillsKeyboard = () => {
           Clean & User-Friendly Layout
         </p>
         <p className="text-gray-500 dark:text-gray-500 text-xs md:text-sm">
-          Type on your keyboard or click the keys below to explore skills
+          Type on your keyboard, click keys, or drag to rotate 3D
         </p>
       </div>
 
@@ -265,12 +289,14 @@ const QwertySkillsKeyboard = () => {
         </div>
       )}
 
-      {/* Keyboard */}
+      {/* 3D Draggable Keyboard */}
       <div 
-        className="bg-gradient-to-br from-gray-800 via-gray-900 to-black rounded-3xl p-6 md:p-8 shadow-2xl border border-gray-700 transition-transform duration-300"
+        className="bg-gradient-to-br from-gray-800 via-gray-900 to-black rounded-3xl p-6 md:p-8 shadow-2xl border border-gray-700 transition-transform duration-300 cursor-grab active:cursor-grabbing"
         style={{
-          transform: `rotate(${keyboardRotation}deg)`
+          transform: `perspective(1000px) rotateX(${keyboardRotation.x}deg) rotateY(${keyboardRotation.y}deg)`,
+          transformStyle: 'preserve-3d'
         }}
+        onMouseDown={handleMouseDown}
       >
         <div className="space-y-3 md:space-y-4">
           {keyboardLayout.map((row, rowIndex) => (
@@ -313,13 +339,13 @@ const QwertySkillsKeyboard = () => {
           </div>
           <div className="flex items-center space-x-2">
             <div className="w-3 h-3 rounded-full bg-pink-500"></div>
-            <span>Tools & Platforms</span>
+            <span>Tools & IDEs</span>
           </div>
         </div>
         
         <div className="text-center mt-4">
           <p className="text-gray-500 text-xs">
-            {Object.keys(skillMapping).length} skills mapped • Click colored keys to explore
+            {Object.keys(skillMapping).length} skills mapped • Drag to rotate 3D • Click colored keys to explore
           </p>
         </div>
       </div>

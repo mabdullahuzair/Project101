@@ -239,7 +239,8 @@ const GridSkillCards = () => {
           className="relative w-full h-full transition-transform duration-700"
           style={{
             transformStyle: 'preserve-3d',
-            transform: isFlipped ? 'rotateY(180deg)' : 'rotateY(0deg)'
+            transform: isFlipped ? 'rotateY(180deg)' : 'rotateY(0deg)',
+            perspective: '1000px'
           }}
         >
           {/* Front Face */}

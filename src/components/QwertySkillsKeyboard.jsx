@@ -195,8 +195,8 @@ const QwertySkillsKeyboard = () => {
       >
         <div
           className={`
-            w-12 h-12 md:w-14 md:h-14 lg:w-16 lg:h-16
-            rounded-xl font-bold text-sm md:text-base
+            w-10 h-10 md:w-12 md:h-12
+            rounded-lg font-bold text-xs md:text-sm
             flex items-center justify-center
             border-2 transition-all duration-200
             ${hasSkill 

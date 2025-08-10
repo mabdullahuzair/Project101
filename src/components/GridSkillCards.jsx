@@ -16,7 +16,7 @@ const GridSkillCards = () => {
   const [isVisible, setIsVisible] = useState(false);
   const sectionRef = useRef(null);
 
-  // 8 skill categories from CV
+  // 8 skill categories - all with 1 year experience and 5 projects
   const skillCategories = [
     {
       id: 'frontend',
@@ -159,12 +159,10 @@ const GridSkillCards = () => {
       const newSet = new Set(prev);
       if (newSet.has(cardId)) {
         newSet.delete(cardId);
-        console.log('Card flipped back:', cardId);
       } else {
         newSet.add(cardId);
-        console.log('Card flipped:', cardId);
       }
-      console.log('Flipped cards:', Array.from(newSet));
+      console.log('New flipped cards:', Array.from(newSet));
       return newSet;
     });
   };
@@ -174,112 +172,76 @@ const GridSkillCards = () => {
     const IconComponent = category.icon;
 
     return (
-      <div
-        className="w-full h-64 cursor-pointer"
-        style={{ 
-          perspective: '1000px',
-          animationDelay: `${index * 150}ms`
-        }}
+      <div 
+        className="flip-card w-full h-64 cursor-pointer"
         onClick={() => handleCardClick(category.id)}
+        style={{ animationDelay: `${index * 150}ms` }}
       >
-        <div
-          className="relative w-full h-full transition-transform duration-700 hover:scale-105"
-          style={{
-            transformStyle: 'preserve-3d',
-            transform: isFlipped ? 'rotateY(180deg)' : 'rotateY(0deg)',
-            WebkitTransformStyle: 'preserve-3d',
-            WebkitTransform: isFlipped ? 'rotateY(180deg)' : 'rotateY(0deg)'
-          }}
-        >
+        <div className={`flip-card-inner ${isFlipped ? 'flipped' : ''}`}>
           {/* Front Face */}
-          <div 
-            className={`absolute inset-0 w-full h-full bg-gradient-to-br ${category.gradient} rounded-xl shadow-xl border border-white/20 overflow-hidden`}
-            style={{
-              backfaceVisibility: 'hidden',
-              WebkitBackfaceVisibility: 'hidden'
-            }}
-          >
-            <div className="p-4 h-full flex flex-col relative z-10">
+          <div className={`flip-card-front bg-gradient-to-br ${category.gradient} rounded-xl shadow-xl border border-white/20`}>
+            <div className="p-4 h-full flex flex-col">
               {/* Header */}
               <div className="flex items-center justify-between mb-3">
-                <div className="w-12 h-12 bg-white/20 rounded-lg flex items-center justify-center backdrop-blur-sm">
-                  <IconComponent size={24} className="text-white" />
+                <div className="w-10 h-10 bg-white/20 rounded-lg flex items-center justify-center">
+                  <IconComponent size={20} className="text-white" />
                 </div>
-                <div className="text-right">
-                  <span className="text-white/80 text-xs">Click to flip</span>
-                </div>
+                <span className="text-white/80 text-xs">Click to flip</span>
               </div>
 
               {/* Title */}
               <h3 className="text-lg font-bold text-white mb-3">{category.title}</h3>
 
-              {/* Skills List */}
-              <div className="flex-grow space-y-3">
-                {category.skills.slice(0, 4).map((skill, idx) => (
+              {/* Skills */}
+              <div className="flex-grow space-y-2">
+                {category.skills.slice(0, 3).map((skill, idx) => (
                   <div key={idx} className="flex items-center justify-between">
-                    <span className="text-white text-sm font-medium">{skill.name}</span>
+                    <span className="text-white text-sm">{skill.name}</span>
                     <div className="flex items-center space-x-2">
-                      <div className="w-12 bg-white/20 rounded-full h-1">
+                      <div className="w-10 bg-white/20 rounded-full h-1">
                         <div
                           className="h-1 bg-white rounded-full transition-all duration-1000"
-                          style={{
-                            width: isVisible ? `${skill.level}%` : '0%',
-                            transitionDelay: `${(index * 150) + (idx * 100)}ms`
-                          }}
+                          style={{ width: isVisible ? `${skill.level}%` : '0%' }}
                         />
                       </div>
-                      <span className="text-white/80 text-xs font-medium">{skill.level}%</span>
+                      <span className="text-white/80 text-xs">{skill.level}%</span>
                     </div>
                   </div>
                 ))}
-                {category.skills.length > 4 && (
-                  <div className="text-white/70 text-xs text-center mt-2">
-                    +{category.skills.length - 4} more skills
-                  </div>
-                )}
               </div>
 
               {/* Stats */}
-              <div className="mt-4 pt-4 border-t border-white/20">
-                <div className="flex justify-between text-white/90 text-xs">
-                  <div className="text-center">
-                    <div className="font-bold text-sm">{category.projects}</div>
-                    <div className="opacity-80">Projects</div>
-                  </div>
-                  <div className="text-center">
-                    <div className="font-bold text-sm">{category.experience}</div>
-                    <div className="opacity-80">Experience</div>
-                  </div>
+              <div className="mt-3 pt-3 border-t border-white/20 flex justify-between text-white text-xs">
+                <div className="text-center">
+                  <div className="font-bold">{category.projects}</div>
+                  <div>Projects</div>
+                </div>
+                <div className="text-center">
+                  <div className="font-bold">{category.experience}</div>
+                  <div>Experience</div>
                 </div>
               </div>
             </div>
           </div>
 
           {/* Back Face */}
-          <div 
-            className={`absolute inset-0 w-full h-full bg-gradient-to-br ${category.gradient} rounded-xl shadow-xl border border-white/20 overflow-hidden`}
-            style={{
-              backfaceVisibility: 'hidden',
-              WebkitBackfaceVisibility: 'hidden',
-              transform: 'rotateY(180deg)'
-            }}
-          >
-            <div className="p-4 h-full flex flex-col relative z-10">
+          <div className={`flip-card-back bg-gradient-to-br ${category.gradient} rounded-xl shadow-xl border border-white/20`}>
+            <div className="p-4 h-full flex flex-col">
               {/* Header */}
               <div className="flex items-center space-x-3 mb-3">
-                <IconComponent size={28} className="text-white" />
+                <IconComponent size={24} className="text-white" />
                 <div>
                   <h3 className="text-lg font-bold text-white">{category.title}</h3>
-                  <p className="text-white/80 text-xs">Detailed Information</p>
+                  <p className="text-white/80 text-xs">Details</p>
                 </div>
               </div>
 
               {/* All Skills */}
-              <div className="mb-4">
-                <h4 className="text-white font-semibold text-sm mb-2">All Skills:</h4>
-                <div className="space-y-1 max-h-20 overflow-y-auto">
+              <div className="mb-3">
+                <h4 className="text-white font-bold text-sm mb-2">Skills:</h4>
+                <div className="space-y-1">
                   {category.skills.map((skill, idx) => (
-                    <div key={idx} className="flex justify-between items-center">
+                    <div key={idx} className="flex justify-between">
                       <span className="text-white text-xs">{skill.name}</span>
                       <span className="text-white font-bold text-xs">{skill.level}%</span>
                     </div>
@@ -288,48 +250,75 @@ const GridSkillCards = () => {
               </div>
 
               {/* Tools */}
-              <div className="mb-4">
-                <h4 className="text-white font-semibold text-sm mb-2">Tools:</h4>
+              <div className="mb-3">
+                <h4 className="text-white font-bold text-sm mb-2">Tools:</h4>
                 <div className="flex flex-wrap gap-1">
                   {category.tools.map((tool, idx) => (
-                    <span
-                      key={idx}
-                      className="px-2 py-1 bg-white/20 text-white text-xs rounded-full backdrop-blur-sm"
-                    >
+                    <span key={idx} className="px-2 py-1 bg-white/20 text-white text-xs rounded-full">
                       {tool}
                     </span>
                   ))}
                 </div>
               </div>
 
-              {/* Experience */}
-              <div className="mt-auto">
-                <div className="grid grid-cols-2 gap-2">
-                  <div className="bg-white/10 rounded-lg p-3 text-center">
-                    <div className="text-white font-bold text-sm">{category.projects}</div>
-                    <div className="text-white/80 text-xs">Projects</div>
-                  </div>
-                  <div className="bg-white/10 rounded-lg p-3 text-center">
-                    <div className="text-white font-bold text-sm">{category.experience}</div>
-                    <div className="text-white/80 text-xs">Experience</div>
-                  </div>
+              {/* Stats */}
+              <div className="mt-auto grid grid-cols-2 gap-2">
+                <div className="bg-white/10 rounded p-2 text-center">
+                  <div className="text-white font-bold text-sm">{category.projects}</div>
+                  <div className="text-white/80 text-xs">Projects</div>
+                </div>
+                <div className="bg-white/10 rounded p-2 text-center">
+                  <div className="text-white font-bold text-sm">{category.experience}</div>
+                  <div className="text-white/80 text-xs">Experience</div>
                 </div>
               </div>
 
-              <div className="text-center mt-3">
+              <div className="text-center mt-2">
                 <span className="text-white/60 text-xs">Click to flip back</span>
               </div>
             </div>
           </div>
         </div>
+
+        {/* CSS for flipping animation */}
+        <style jsx>{`
+          .flip-card {
+            perspective: 1000px;
+          }
+          
+          .flip-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+          }
+          
+          .flip-card-inner.flipped {
+            transform: rotateY(180deg);
+          }
+          
+          .flip-card-front, .flip-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+          }
+          
+          .flip-card-back {
+            transform: rotateY(180deg);
+          }
+        `}</style>
       </div>
     );
   };
 
   return (
     <div ref={sectionRef} className="w-full py-8">
-      {/* Grid System */}
-      <div className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto px-4 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-20'}`}>
+      {/* 3 Cards Per Row Grid */}
+      <div className={`grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto px-4 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-20'}`}>
         {skillCategories.map((category, index) => (
           <SkillCard key={category.id} category={category} index={index} />
         ))}
@@ -343,9 +332,9 @@ const GridSkillCards = () => {
         <div className="flex justify-center space-x-4 text-xs text-gray-500 dark:text-gray-500">
           <span>8 Categories</span>
           <span>•</span>
-          <span>{skillCategories.reduce((acc, cat) => acc + cat.skills.length, 0)} Skills</span>
+          <span>40 Total Projects</span>
           <span>•</span>
-          <span>{skillCategories.reduce((acc, cat) => acc + cat.projects, 0)}+ Projects</span>
+          <span>1 Year Experience Each</span>
         </div>
       </div>
     </div>

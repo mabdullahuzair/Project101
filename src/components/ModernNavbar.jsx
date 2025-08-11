@@ -79,7 +79,7 @@ const ModernNavbar = ({ darkMode, toggleDarkMode }) => {
             </div>
 
             {/* Desktop Navigation */}
-            <div className="hidden md:flex items-center space-x-2">
+            <div className="hidden lg:flex items-center space-x-2">
               {navItems.map((item) => {
                 const IconComponent = item.icon;
                 const isActive = activeSection === item.id;
@@ -142,7 +142,7 @@ const ModernNavbar = ({ darkMode, toggleDarkMode }) => {
               {/* Mobile menu button */}
               <button
                 onClick={() => setIsOpen(!isOpen)}
-                className="lg:hidden relative w-10 h-10 rounded-xl bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 flex items-center justify-center transition-all duration-300 group overflow-hidden"
+                className="md:hidden relative w-10 h-10 rounded-xl bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 flex items-center justify-center transition-all duration-300 group overflow-hidden"
                 aria-label="Toggle mobile menu"
               >
                 <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-purple-500 opacity-0 group-hover:opacity-10 transition-all duration-300"></div>
@@ -164,7 +164,7 @@ const ModernNavbar = ({ darkMode, toggleDarkMode }) => {
         <div className={`lg:hidden overflow-hidden transition-all duration-500 ease-out ${
           isOpen ? 'max-h-screen opacity-100' : 'max-h-0 opacity-0'
         }`}>
-          <div className="bg-white/98 dark:bg-gray-900/98 backdrop-blur-sm border-t border-gray-200/50 dark:border-gray-700/50">
+          <div className="md:hidden bg-white/98 dark:bg-gray-900/98 backdrop-blur-sm border-t border-gray-200/50 dark:border-gray-700/50">
             <div className="px-4 py-6 space-y-2">
               {navItems.map((item, index) => {
                 const IconComponent = item.icon;

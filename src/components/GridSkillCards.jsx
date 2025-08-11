@@ -317,8 +317,8 @@ const GridSkillCards = () => {
 
   return (
     <div ref={sectionRef} className="w-full py-8">
-      {/* 3 Cards Per Row Grid */}
-      <div className={`grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto px-4 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-20'}`}>
+      {/* 3 Cards Per Row Grid - Fixed Layout */}
+      <div className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto px-4 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-20'}`}>
         {skillCategories.map((category, index) => (
           <SkillCard key={category.id} category={category} index={index} />
         ))}
@@ -327,14 +327,14 @@ const GridSkillCards = () => {
       {/* Instructions */}
       <div className={`text-center mt-8 transition-all duration-1000 delay-500 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-20'}`}>
         <p className="text-gray-600 dark:text-gray-400 text-sm mb-2">
-          Click cards to flip and see detailed information
+          🃏 Click any card to flip and explore detailed skill information
         </p>
         <div className="flex justify-center space-x-4 text-xs text-gray-500 dark:text-gray-500">
-          <span>8 Categories</span>
+          <span>8 Skill Categories</span>
           <span>•</span>
-          <span>40 Total Projects</span>
+          <span>Interactive Flip Cards</span>
           <span>•</span>
-          <span>1 Year Experience Each</span>
+          <span>3 Cards Per Row Layout</span>
         </div>
       </div>
     </div>
